@@ -17,7 +17,7 @@ namespace BankAccount
 
         public double Deposit(double amt)
         {
-            if(amt >= 1000)
+            if(amt >= 10000)
             {
                 throw new ArgumentException($"{ nameof(amt)} must be smaller than 10000");
             }

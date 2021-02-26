@@ -11,10 +11,12 @@ namespace BankAccount.Tests
     [TestClass()]
     public class AccountTests
     {
+        private Account acc;
+
         [TestInitialize] // Run code before EACH Test
         public void Initialize()
         {
-
+            acc = new Account();
         }
 
         [TestMethod]
@@ -25,17 +27,16 @@ namespace BankAccount.Tests
         public void Deposit_TooLarge_ThrowsArgumentException(double tooLargeDeposit)
         {
             Account acc = new Account();
-            const int TooLargeDeposit = 10_000;
+            
            
-            Assert.ThrowsException<ArgumentException>(() => acc.Deposit(TooLargeDeposit));
+            Assert.ThrowsException<ArgumentException>(() => acc.Deposit(tooLargeDeposit));
         }
+
         [TestMethod()]
-        //[TestCategory("Deposit")]
-        //[Priority(1)]
         [DataRow(100)]
         [DataRow(9999.99)]
         [DataRow(.01)]
-        public void Deposit_PositiveAmount_AddsToBalance(Double initialDeposit)
+        public void Deposit_PositiveAmount_AddsToBalance(double initialDeposit)
         {
             // AAA - Arrange Act Assert
 
@@ -43,8 +44,6 @@ namespace BankAccount.Tests
             Account acc = new Account();
            const double startBalance = 0;
             
-
-
             // Act - Execute method under test
               acc.Deposit(initialDeposit);
 
@@ -107,10 +106,11 @@ namespace BankAccount.Tests
         {
             double expectedBalance = initialDeposit - withdrawAmount;
 
-            // acc.Deposit(initialDeposit);
-           // acc.Withdraw(withdrawAmount);
+            // Assert.Fail();
+             acc.Deposit(initialDeposit);
+            acc.Withdraw(withdrawAmount);
 
-         //   Assert.AreEqual(expectedBalance);
+            Assert.AreEqual(expectedBalance, acc.Balance);
         }
 
         [TestMethod]
